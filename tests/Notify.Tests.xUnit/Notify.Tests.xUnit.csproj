@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{24B3FF23-DA98-4AC8-BE19-82BDCB58A792}</ProjectGuid>
+    <ProjectGuid>{F078BE99-791B-4772-BB41-7BEEF8531783}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Notify.Tests.xUnit</RootNamespace>
@@ -136,25 +136,25 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\UnitTestApp.rd.xml" />
-    <Content Include="..\Notify\Assets\LockScreenLogo.scale-200.png">
+    <Content Include="..\..\src\Notify\Assets\LockScreenLogo.scale-200.png">
       <Link>Assets\LockScreenLogo.scale-200.png</Link>
     </Content>
-    <Content Include="..\Notify\Assets\SplashScreen.scale-200.png">
+    <Content Include="..\..\src\Notify\Assets\SplashScreen.scale-200.png">
       <Link>Assets\SplashScreen.scale-200.png</Link>
     </Content>
-    <Content Include="..\Notify\Assets\Square150x150Logo.scale-200.png">
+    <Content Include="..\..\src\Notify\Assets\Square150x150Logo.scale-200.png">
       <Link>Assets\Square150x150Logo.scale-200.png</Link>
     </Content>
-    <Content Include="..\Notify\Assets\Square44x44Logo.scale-200.png">
+    <Content Include="..\..\src\Notify\Assets\Square44x44Logo.scale-200.png">
       <Link>Assets\Square44x44Logo.scale-200.png</Link>
     </Content>
-    <Content Include="..\Notify\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+    <Content Include="..\..\src\Notify\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <Link>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</Link>
     </Content>
-    <Content Include="..\Notify\Assets\StoreLogo.png">
+    <Content Include="..\..\src\Notify\Assets\StoreLogo.png">
       <Link>Assets\StoreLogo.png</Link>
     </Content>
-    <Content Include="..\Notify\Assets\Wide310x150Logo.scale-200.png">
+    <Content Include="..\..\src\Notify\Assets\Wide310x150Logo.scale-200.png">
       <Link>Assets\Wide310x150Logo.scale-200.png</Link>
     </Content>
   </ItemGroup>
@@ -162,8 +162,8 @@
     <None Include="Notify.Tests.xUnit_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Notify\Notify.csproj">
-      <Project>{C5F35439-1CE8-404D-843A-C0E6BAF29F25}</Project>
+    <ProjectReference Include="..\..\src\Notify\Notify.csproj">
+      <Project>{CB2C631B-F30F-44CB-A5CD-37CD4AD208CD}</Project>
       <Name>Notify</Name>
     </ProjectReference>
   </ItemGroup>

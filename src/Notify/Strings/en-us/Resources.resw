@@ -129,17 +129,17 @@
     <value>Main</value>
     <comment>Navigation view item name for Main</comment>
   </data>
-  <data name="MessageDetails_NoSelection.Text" xml:space="preserve">
+  <data name="Messages_NoSelection.Text" xml:space="preserve">
     <value>Select an item from the list.</value>
-    <comment>No selection text for MessageDetails</comment>
+    <comment>No selection text for Messages</comment>
   </data>
-  <data name="MessageDetails.ListHeader" xml:space="preserve">
-    <value>MessageDetails</value>
-    <comment>Title for MessageDetailsPage</comment>
+  <data name="Messages.ListHeader" xml:space="preserve">
+    <value>Messages</value>
+    <comment>Title for MessagesPage</comment>
   </data>
-  <data name="Shell_MessageDetails.Content" xml:space="preserve">
-    <value>MessageDetails</value>
-    <comment>Navigation view item name for MessageDetails</comment>
+  <data name="Shell_Messages.Content" xml:space="preserve">
+    <value>Messages</value>
+    <comment>Navigation view item name for Messages</comment>
   </data>
   <data name="Settings_Theme.Text" xml:space="preserve">
     <value>Choose Theme</value>
@@ -176,13 +176,5 @@
   <data name="Settings_Personalization.Text" xml:space="preserve">   
     <value>Personalization</value>
     <comment>Personalization text for Settings</comment>
-  </data>
-  <data name="Shell_SchemeActivationSample.Content" xml:space="preserve">
-    <value>SchemeActivationSample</value>
-    <comment>Navigation view item name for SchemeActivationSample</comment>
-  </data>
-  <data name="SchemeActivationSamplePage_Description.Text" xml:space="preserve">
-    <value>This is a sample page that will show activation parameters if the app is activated from Deep Linking.</value>
-    <comment>Description text for SchemeActivationSamplePage</comment>
   </data>
 </root>

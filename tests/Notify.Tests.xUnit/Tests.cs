@@ -23,12 +23,12 @@ namespace Notify.Tests.XUnit
             Assert.NotNull(vm);
         }
 
-        // TODO: Add tests for functionality you add to MessageDetailsViewModel.
+        // TODO: Add tests for functionality you add to MessagesViewModel.
         [Fact]
-        public void TestMessageDetailsViewModelCreation()
+        public void TestMessagesViewModelCreation()
         {
             // This test is trivial. Add your own tests for the logic you add to the ViewModel.
-            var vm = new MessageDetailsViewModel();
+            var vm = new MessagesViewModel();
             Assert.NotNull(vm);
         }
 

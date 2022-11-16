@@ -11,7 +11,7 @@ using Notify.Core.Services;
 
 namespace Notify.ViewModels
 {
-    public class MessageDetailsViewModel : ObservableObject
+    public class MessagesViewModel : ObservableObject
     {
         private SampleOrder _selected;
 
@@ -23,7 +23,7 @@ namespace Notify.ViewModels
 
         public ObservableCollection<SampleOrder> SampleItems { get; private set; } = new ObservableCollection<SampleOrder>();
 
-        public MessageDetailsViewModel()
+        public MessagesViewModel()
         {
         }
 

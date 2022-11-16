@@ -3,18 +3,16 @@
 <Package
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
-  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
-  xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"
   xmlns:genTemplate="http://schemas.microsoft.com/appx/developer/templatestudio"
-  IgnorableNamespaces="uap mp genTemplate uap5 uap3">
+  IgnorableNamespaces="uap mp genTemplate">
 
   <Identity
-    Name="155D8E09-E22B-4CC6-ABA3-F8782C378D62"
+    Name="04EB79B0-7163-4296-8465-E2155EC8A130"
     Publisher="CN=12009"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="155D8E09-E22B-4CC6-ABA3-F8782C378D62" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="04EB79B0-7163-4296-8465-E2155EC8A130" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>Notify</DisplayName>
@@ -40,32 +38,11 @@
         Square44x44Logo="Assets\Square44x44Logo.png"
         Description="ms-resource:AppDescription"
         BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png">
-          <uap5:MixedRealityModel Path="Assets\3dlogo.glb"/>
-        </uap:DefaultTile>
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
 
       <Extensions>
-        <uap3:Extension Category="windows.appUriHandler">
-          <uap3:AppUriHandler>
-            <uap3:Host Name="myapp.website.com"/>
-          </uap3:AppUriHandler>
-        </uap3:Extension>
-          <uap5:Extension
-            Category="windows.appExecutionAlias"
-            Executable="Notify.exe"
-            EntryPoint="Notify.App">
-            <uap5:AppExecutionAlias>
-              <uap5:ExecutionAlias Alias="Notify.exe" />
-            </uap5:AppExecutionAlias>
-          </uap5:Extension>
-        <uap:Extension Category="windows.protocol">
-          <uap:Protocol Name="wtsapp">
-            <uap:Logo>Assets\Icon.png</uap:Logo>
-            <uap:DisplayName>Notify</uap:DisplayName>
-          </uap:Protocol>
-        </uap:Extension>
       </Extensions>
     </Application>
   </Applications>
@@ -77,7 +54,7 @@
   <genTemplate:Metadata>
     <genTemplate:Item Name="generator" Value="Template Studio"/>
     <genTemplate:Item Name="wizardVersion" Version="v5.2" />
-    <genTemplate:Item Name="projectType" Value="TabbedNav" />
+    <genTemplate:Item Name="projectType" Value="SplitView" />
     <genTemplate:Item Name="framework" Value="MVVMToolkit" />
     <genTemplate:Item Name="platform" Value="Uwp" />
   </genTemplate:Metadata>

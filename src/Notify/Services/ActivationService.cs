@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 
 using Notify.Activation;
 using Notify.Core.Helpers;
-using Notify.Services;
 
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -66,7 +65,6 @@ namespace Notify.Services
         {
             await Singleton<BackgroundTaskService>.Instance.RegisterBackgroundTasksAsync().ConfigureAwait(false);
             await ThemeSelectorService.InitializeAsync().ConfigureAwait(false);
-            await WindowManagerService.Current.InitializeAsync();
         }
 
         private async Task HandleActivationAsync(object activationArgs)
@@ -103,10 +101,6 @@ namespace Notify.Services
         private IEnumerable<ActivationHandler> GetActivationHandlers()
         {
             yield return Singleton<HubNotificationsService>.Instance;
-            yield return Singleton<ToastNotificationsService>.Instance;
-            yield return Singleton<SchemeActivationHandler>.Instance;
-            yield return Singleton<WebToAppLinkActivationHandler>.Instance;
-            yield return Singleton<CommandLineActivationHandler>.Instance;
             yield return Singleton<BackgroundTaskService>.Instance;
         }
 

@@ -7,7 +7,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace Notify.Views
 {
-    public sealed partial class MessageDetailsDetailControl : UserControl
+    public sealed partial class MessagesDetailControl : UserControl
     {
         public SampleOrder ListMenuItem
         {
@@ -15,16 +15,16 @@ namespace Notify.Views
             set { SetValue(ListMenuItemProperty, value); }
         }
 
-        public static readonly DependencyProperty ListMenuItemProperty = DependencyProperty.Register("ListMenuItem", typeof(SampleOrder), typeof(MessageDetailsDetailControl), new PropertyMetadata(null, OnListMenuItemPropertyChanged));
+        public static readonly DependencyProperty ListMenuItemProperty = DependencyProperty.Register("ListMenuItem", typeof(SampleOrder), typeof(MessagesDetailControl), new PropertyMetadata(null, OnListMenuItemPropertyChanged));
 
-        public MessageDetailsDetailControl()
+        public MessagesDetailControl()
         {
             InitializeComponent();
         }
 
         private static void OnListMenuItemPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var control = d as MessageDetailsDetailControl;
+            var control = d as MessagesDetailControl;
             control.ForegroundElement.ChangeView(0, 0, 1);
         }
     }

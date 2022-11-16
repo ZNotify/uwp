@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-using Notify.Core.Helpers;
 using Notify.Services;
 
 using Windows.ApplicationModel.Activation;
@@ -28,10 +27,6 @@ namespace Notify.Activation
             }
 
             NavigationService.Navigate(_navElement, arguments);
-
-            // TODO: Remove or change this sample which shows a toast notification when the app is launched.
-            // You can use this sample to create toast notifications where needed in your app.
-            Singleton<ToastNotificationsService>.Instance.ShowToastNotificationSample();
             await Task.CompletedTask;
         }
 

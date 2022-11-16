@@ -22,8 +22,6 @@ namespace Notify
 
         public App()
         {
-            // TODO: Replace the default 3D Launcher model with something appropriate to your app
-            // For details see https://docs.microsoft.com/windows/mixed-reality/3d-app-launcher-design-guidance
             InitializeComponent();
 
             // TODO: Add your app in the app center and set your secret here. More at https://docs.microsoft.com/appcenter/sdk/getting-started/uwp
