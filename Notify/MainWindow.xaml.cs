@@ -25,8 +25,6 @@ namespace Notify
     {
         public MainWindow()
         {
-            
-            
             this.InitializeComponent();
         }
     }
