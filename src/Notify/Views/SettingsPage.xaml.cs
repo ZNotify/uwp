@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 
 using Notify.ViewModels;
 
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Navigation;
 
 namespace Notify.Views
 {

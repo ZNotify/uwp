@@ -2,10 +2,8 @@
 
 using Notify.Services;
 
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
-
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Navigation;
 using WinUI = Microsoft.UI.Xaml.Controls;
 
 namespace Notify.Behaviors
@@ -13,7 +11,7 @@ namespace Notify.Behaviors
     public class NavigationViewHeaderBehavior : Behavior<WinUI.NavigationView>
     {
         private static NavigationViewHeaderBehavior _current;
-        private Page _currentPage;
+        private WinUI.Page _currentPage;
 
         public DataTemplate DefaultHeaderTemplate { get; set; }
 
@@ -25,12 +23,12 @@ namespace Notify.Behaviors
 
         public static readonly DependencyProperty DefaultHeaderProperty = DependencyProperty.Register("DefaultHeader", typeof(object), typeof(NavigationViewHeaderBehavior), new PropertyMetadata(null, (d, e) => _current.UpdateHeader()));
 
-        public static NavigationViewHeaderMode GetHeaderMode(Page item)
+        public static NavigationViewHeaderMode GetHeaderMode(WinUI.Page item)
         {
             return (NavigationViewHeaderMode)item.GetValue(HeaderModeProperty);
         }
 
-        public static void SetHeaderMode(Page item, NavigationViewHeaderMode value)
+        public static void SetHeaderMode(WinUI.Page item, NavigationViewHeaderMode value)
         {
             item.SetValue(HeaderModeProperty, value);
         }
@@ -38,12 +36,12 @@ namespace Notify.Behaviors
         public static readonly DependencyProperty HeaderModeProperty =
             DependencyProperty.RegisterAttached("HeaderMode", typeof(bool), typeof(NavigationViewHeaderBehavior), new PropertyMetadata(NavigationViewHeaderMode.Always, (d, e) => _current.UpdateHeader()));
 
-        public static object GetHeaderContext(Page item)
+        public static object GetHeaderContext(WinUI.Page item)
         {
             return item.GetValue(HeaderContextProperty);
         }
 
-        public static void SetHeaderContext(Page item, object value)
+        public static void SetHeaderContext(WinUI.Page item, object value)
         {
             item.SetValue(HeaderContextProperty, value);
         }
@@ -51,12 +49,12 @@ namespace Notify.Behaviors
         public static readonly DependencyProperty HeaderContextProperty =
             DependencyProperty.RegisterAttached("HeaderContext", typeof(object), typeof(NavigationViewHeaderBehavior), new PropertyMetadata(null, (d, e) => _current.UpdateHeader()));
 
-        public static DataTemplate GetHeaderTemplate(Page item)
+        public static DataTemplate GetHeaderTemplate(WinUI.Page item)
         {
             return (DataTemplate)item.GetValue(HeaderTemplateProperty);
         }
 
-        public static void SetHeaderTemplate(Page item, DataTemplate value)
+        public static void SetHeaderTemplate(WinUI.Page item, DataTemplate value)
         {
             item.SetValue(HeaderTemplateProperty, value);
         }
@@ -77,10 +75,10 @@ namespace Notify.Behaviors
             NavigationService.Navigated -= OnNavigated;
         }
 
-        private void OnNavigated(object sender, NavigationEventArgs e)
+        private void OnNavigated(object sender, NavigationEventArgs navigationEventArgs)
         {
-            var frame = sender as Frame;
-            if (frame.Content is Page page)
+            var frame = sender as WinUI.Frame;
+            if (frame.Content is WinUI.Page page)
             {
                 _currentPage = page;
 

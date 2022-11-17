@@ -6,7 +6,6 @@
     xmlns:helper="using:Notify.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Style="{StaticResource PageStyle}"
-    xmlns:xaml="using:Windows.UI.Xaml"
     mc:Ignorable="d">
     <Page.Resources>
         <helper:EnumToBooleanConverter x:Key="EnumToBooleanConverter" EnumType="ElementTheme" />
@@ -27,7 +26,7 @@
                         FontSize="15"
                         GroupName="AppTheme">
                         <RadioButton.CommandParameter>
-                            <xaml:ElementTheme>Light</xaml:ElementTheme>
+                            <ElementTheme>Light</ElementTheme>
                         </RadioButton.CommandParameter>
                     </RadioButton>
                     <RadioButton
@@ -37,7 +36,7 @@
                         FontSize="15"
                         GroupName="AppTheme">
                         <RadioButton.CommandParameter>
-                            <xaml:ElementTheme>Dark</xaml:ElementTheme>
+                            <ElementTheme>Dark</ElementTheme>
                         </RadioButton.CommandParameter>
                     </RadioButton>
                     <RadioButton
@@ -47,7 +46,7 @@
                         FontSize="15"
                         GroupName="AppTheme">
                         <RadioButton.CommandParameter>
-                            <xaml:ElementTheme>Default</xaml:ElementTheme>
+                            <ElementTheme>Default</ElementTheme>
                         </RadioButton.CommandParameter>
                     </RadioButton>
                 </StackPanel>
@@ -65,5 +64,5 @@
                 <HyperlinkButton x:Uid="Settings_PrivacyTermsLink" Margin="{StaticResource XSmallTopMargin}" />
             </StackPanel>
         </StackPanel>
-    </Grid>    
+    </Grid>
 </Page>

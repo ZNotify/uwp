@@ -1,8 +1,10 @@
-﻿using System;
-
+using System;
+using Microsoft.UI.Xaml;
+using System.Runtime.InteropServices;
 using Notify.ViewModels;
 
-using Windows.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls;
+using Windows.UI.WindowManagement;
 
 namespace Notify.Views
 {
@@ -14,8 +16,9 @@ namespace Notify.Views
         public ShellPage()
         {
             InitializeComponent();
+
             DataContext = ViewModel;
-            ViewModel.Initialize(shellFrame, navigationView, KeyboardAccelerators);
+            ViewModel.Initialize(ShellFrame, NavigationView, KeyboardAccelerators);
         }
     }
 }

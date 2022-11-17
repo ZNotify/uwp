@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 
 namespace Notify.Activation
@@ -27,7 +27,7 @@ namespace Notify.Activation
         public override bool CanHandle(object args)
         {
             // CanHandle checks the args is of type you have configured
-            return args is T && CanHandleInternal(args as T);
+            return args is T o && CanHandleInternal(o);
         }
 
         // You can override this method to add extra validation on activation args

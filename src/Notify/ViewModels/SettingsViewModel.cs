@@ -1,15 +1,14 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
-
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
 
 using Notify.Helpers;
 using Notify.Services;
 
 using Windows.ApplicationModel;
-using Windows.UI.Xaml;
+using Microsoft.UI.Xaml;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace Notify.ViewModels
 {

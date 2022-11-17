@@ -1,7 +1,5 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
-
-using Microsoft.WindowsAzure.Messaging;
 
 using Notify.Activation;
 
@@ -18,19 +16,19 @@ namespace Notify.Services
             try
             {
                 // TODO: Set your Hub Name
-                var hubName = string.Empty;
-
-                // TODO: Set your DefaultListenSharedAccessSignature
-                var accessSignature = string.Empty;
-
-                var channel = await PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync();
-
-                var hub = new NotificationHub(hubName, accessSignature);
-                var result = await hub.RegisterNativeAsync(channel.Uri);
-                if (result.RegistrationId != null)
-                {
-                    // Registration was successful
-                }
+                // var hubName = string.Empty;
+                //
+                // // TODO: Set your DefaultListenSharedAccessSignature
+                // var accessSignature = string.Empty;
+                //
+                // var channel = await PushNotificationChannelManager.CreatePushNotificationChannelForApplicationAsync();
+                //
+                // var hub = new NotificationHub(hubName, accessSignature);
+                // var result = await hub.RegisterNativeAsync(channel.Uri);
+                // if (result.RegistrationId != null)
+                // {
+                //     // Registration was successful
+                // }
 
                 // You can also send push notifications from Windows Developer Center targeting your app consumers
                 // More details at https://docs.microsoft.com/windows/uwp/publish/send-push-notifications-to-your-apps-customers

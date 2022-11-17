@@ -10,6 +10,8 @@
     xmlns:views="using:Notify.Views"
     xmlns:ic="using:Microsoft.Xaml.Interactions.Core"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
+    xmlns:viewmodels="using:Notify.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewmodels:ShellViewModel}"
     mc:Ignorable="d">
 
     <i:Interaction.Behaviors>
@@ -19,12 +21,11 @@
     </i:Interaction.Behaviors>
 
     <winui:NavigationView
-        x:Name="navigationView"
-        IsBackButtonVisible="Visible"
-        IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
+        x:Name="NavigationView"
+        IsBackButtonVisible="Collapsed"
         SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
         IsSettingsVisible="True"
-        ExpandedModeThresholdWidth="1280"
+        ExpandedModeThresholdWidth="800"
         Background="{ThemeResource SystemControlBackgroundAltHighBrush}">
         <winui:NavigationView.MenuItems>
             <!--
@@ -33,8 +34,10 @@
             Or to use an IconElement instead of a Symbol see https://github.com/microsoft/TemplateStudio/blob/main/docs/UWP/projectTypes/navigationpane.md
             Edit String/en-US/Resources.resw: Add a menu item title for each page
             -->
-            <winui:NavigationViewItem x:Uid="Shell_Main" Icon="Document" helpers:NavHelper.NavigateTo="views:MainPage" />
-            <winui:NavigationViewItem x:Uid="Shell_Messages" Icon="Document" helpers:NavHelper.NavigateTo="views:MessagesPage" />
+            <winui:NavigationViewItem x:Uid="Shell_Main" Icon="Document"
+                                      helpers:NavHelper.NavigateTo="views:MainPage" />
+            <winui:NavigationViewItem x:Uid="Shell_Messages" Icon="Document"
+                                      helpers:NavHelper.NavigateTo="views:MessagesPage" />
         </winui:NavigationView.MenuItems>
         <i:Interaction.Behaviors>
             <behaviors:NavigationViewHeaderBehavior
@@ -55,7 +58,8 @@
             </ic:EventTriggerBehavior>
         </i:Interaction.Behaviors>
         <Grid>
-            <Frame x:Name="shellFrame" />
+            <Frame x:Name="ShellFrame" />
         </Grid>
     </winui:NavigationView>
+
 </Page>

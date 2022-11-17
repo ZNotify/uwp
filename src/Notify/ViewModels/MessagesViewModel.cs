@@ -1,10 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Uwp.UI.Controls;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.WinUI.UI.Controls;
 
 using Notify.Core.Models;
 using Notify.Core.Services;

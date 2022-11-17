@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,8 +7,8 @@ using Notify.Activation;
 using Notify.Core.Helpers;
 
 using Windows.ApplicationModel.Activation;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 
 namespace Notify.Services
 {
@@ -18,7 +18,7 @@ namespace Notify.Services
     {
         private readonly App _app;
         private readonly Type _defaultNavItem;
-        private Lazy<UIElement> _shell;
+        private readonly Lazy<UIElement> _shell;
 
         private object _lastActivationArgs;
 
@@ -31,7 +31,8 @@ namespace Notify.Services
 
         public async Task ActivateAsync(object activationArgs)
         {
-            if (IsInteractive(activationArgs))
+            var isInteractive = IsInteractive(activationArgs);
+            if (isInteractive)
             {
                 // Initialize services that you need before app activation
                 // take into account that the splash screen is shown while this code runs.
@@ -39,10 +40,10 @@ namespace Notify.Services
 
                 // Do not repeat app initialization when the Window already has content,
                 // just ensure that the window is active
-                if (Window.Current.Content == null)
+                if (App.Window.Content == null)
                 {
                     // Create a Shell or Frame to act as the navigation context
-                    Window.Current.Content = _shell?.Value ?? new Frame();
+                    App.Window.Content = _shell?.Value ?? new Frame();
                 }
             }
 
@@ -51,10 +52,10 @@ namespace Notify.Services
             await HandleActivationAsync(activationArgs);
             _lastActivationArgs = activationArgs;
 
-            if (IsInteractive(activationArgs))
+            if (isInteractive)
             {
                 // Ensure the current window is active
-                Window.Current.Activate();
+                App.Window.Activate();
 
                 // Tasks after activation
                 await StartupAsync();

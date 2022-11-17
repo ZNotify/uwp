@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 
 using Windows.ApplicationModel.Resources;
@@ -7,11 +7,11 @@ namespace Notify.Helpers
 {
     internal static class ResourceExtensions
     {
-        private static ResourceLoader _resLoader = new ResourceLoader();
+        private static readonly ResourceLoader ResLoader = new ResourceLoader();
 
         public static string GetLocalized(this string resourceKey)
         {
-            return _resLoader.GetString(resourceKey);
+            return ResLoader.GetString(resourceKey);
         }
     }
 }
