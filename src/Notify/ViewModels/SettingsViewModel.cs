@@ -19,18 +19,18 @@ namespace Notify.ViewModels
 
         public ElementTheme ElementTheme
         {
-            get { return _elementTheme; }
+            get => _elementTheme;
 
-            set { SetProperty(ref _elementTheme, value); }
+            set => SetProperty(ref _elementTheme, value);
         }
 
         private string _versionDescription;
 
         public string VersionDescription
         {
-            get { return _versionDescription; }
+            get => _versionDescription;
 
-            set { SetProperty(ref _versionDescription, value); }
+            set => SetProperty(ref _versionDescription, value);
         }
 
         private ICommand _switchThemeCommand;
@@ -39,17 +39,12 @@ namespace Notify.ViewModels
         {
             get
             {
-                if (_switchThemeCommand == null)
-                {
-                    _switchThemeCommand = new RelayCommand<ElementTheme>(
-                        async (param) =>
-                        {
-                            ElementTheme = param;
-                            await ThemeSelectorService.SetThemeAsync(param);
-                        });
-                }
-
-                return _switchThemeCommand;
+                return _switchThemeCommand ??= new RelayCommand<ElementTheme>(
+                    async (param) =>
+                    {
+                        ElementTheme = param;
+                        await ThemeSelectorService.SetThemeAsync(param);
+                    });
             }
         }
 
@@ -63,7 +58,7 @@ namespace Notify.ViewModels
             await Task.CompletedTask;
         }
 
-        private string GetVersionDescription()
+        private static string GetVersionDescription()
         {
             var appName = "AppDisplayName".GetLocalized();
             var package = Package.Current;
