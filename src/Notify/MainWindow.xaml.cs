@@ -18,17 +18,11 @@ using Windows.Foundation.Collections;
 using Notify.Views;
 using WinRT.Interop;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
-
 namespace Notify
 {
-    /// <summary>
-    /// An empty window that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class MainWindow : Window
     {
-        AppWindow m_AppWindow;
+        readonly AppWindow m_AppWindow;
 
         public MainWindow()
         {
@@ -36,47 +30,26 @@ namespace Notify
 
             m_AppWindow = GetAppWindowForCurrentWindow();
 
-            // Check to see if customization is supported.
-            // Currently only supported on Windows 11.
             if (AppWindowTitleBar.IsCustomizationSupported())
             {
                 var titleBar = m_AppWindow.TitleBar;
                 titleBar.ExtendsContentIntoTitleBar = true;
                 AppTitleBar.Loaded += AppTitleBar_Loaded;
                 AppTitleBar.SizeChanged += AppTitleBar_SizeChanged;
-
-                BackButton.Click += OnBackClicked;
-                BackButton.Visibility = Visibility.Collapsed;
             }
             else
             {
-                // Title bar customization using these APIs is currently
-                // supported only on Windows 11. In other cases, hide
-                // the custom title bar element.
-                // AppTitleBar.Visibility = Visibility.Collapsed;
-                // TODO Show alternative UI for any functionality in
-                // the title bar, such as the back button, if used
+                AppTitleBar.Visibility = Visibility.Collapsed;
             }
         }
-
-        public Button BackButton => AppTitleBarBackButton;
 
         private void AppTitleBar_Loaded(object sender, RoutedEventArgs e)
         {
             SetTitleBar(AppTitleBar);
-            // TODO Raname MainPage in case your app Main Page has a different name
             PageFrame.Navigate(typeof(ShellPage));
             if (AppWindowTitleBar.IsCustomizationSupported())
             {
                 SetDragRegionForCustomTitleBar(m_AppWindow);
-            }
-        }
-
-        private void OnBackClicked(object sender, RoutedEventArgs e)
-        {
-            if (PageFrame.CanGoBack)
-            {
-                PageFrame.GoBack();
             }
         }
 
@@ -110,7 +83,7 @@ namespace Notify
                 List<Windows.Graphics.RectInt32> dragRectsList = new();
 
                 Windows.Graphics.RectInt32 dragRectL;
-                dragRectL.X = (int)((LeftPaddingColumn.ActualWidth + IconColumn.ActualWidth) * scaleAdjustment);
+                dragRectL.X = (int)((LeftPaddingColumn.ActualWidth) * scaleAdjustment);
                 dragRectL.Y = 0;
                 dragRectL.Height = (int)((AppTitleBar.ActualHeight) * scaleAdjustment);
                 dragRectL.Width = (int)((TitleColumn.ActualWidth
@@ -140,7 +113,6 @@ namespace Notify
             DisplayArea displayArea = DisplayArea.GetFromWindowId(wndId, DisplayAreaFallback.Primary);
             IntPtr hMonitor = Win32Interop.GetMonitorFromDisplayId(displayArea.DisplayId);
 
-            // Get DPI.
             int result = GetDpiForMonitor(hMonitor, Monitor_DPI_Type.MDT_Default, out uint dpiX, out uint _);
             if (result != 0)
             {

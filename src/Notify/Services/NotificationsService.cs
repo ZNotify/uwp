@@ -9,7 +9,7 @@ using Windows.Networking.PushNotifications;
 namespace Notify.Services
 {
     // More about adding push notifications to your Windows app at https://docs.microsoft.com/azure/app-service-mobile/app-service-mobile-windows-store-dotnet-get-started-push
-    internal class HubNotificationsService : ActivationHandler<ToastNotificationActivatedEventArgs>
+    internal class NotificationsService : ActivationHandler<ToastNotificationActivatedEventArgs>
     {
         public async Task InitializeAsync()
         {

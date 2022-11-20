@@ -101,7 +101,7 @@ namespace Notify.Services
 
         private IEnumerable<ActivationHandler> GetActivationHandlers()
         {
-            yield return Singleton<HubNotificationsService>.Instance;
+            yield return Singleton<NotificationsService>.Instance;
             yield return Singleton<BackgroundTaskService>.Instance;
         }
 
