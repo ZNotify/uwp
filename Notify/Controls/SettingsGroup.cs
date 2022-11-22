@@ -9,81 +9,84 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Notify.Controls
+namespace Notify.Controls;
+
+[TemplateVisualState(Name = "Normal", GroupName = "CommonStates")]
+[TemplateVisualState(Name = "Disabled", GroupName = "CommonStates")]
+[TemplatePart(Name = PartDescriptionPresenter, Type = typeof(ContentPresenter))]
+public partial class SettingsGroup : ItemsControl
 {
-    [TemplateVisualState(Name = "Normal", GroupName = "CommonStates")]
-    [TemplateVisualState(Name = "Disabled", GroupName = "CommonStates")]
-    [TemplatePart(Name = PartDescriptionPresenter, Type = typeof(ContentPresenter))]
-    public partial class SettingsGroup : ItemsControl
+    private const string PartDescriptionPresenter = "DescriptionPresenter";
+    private ContentPresenter? _descriptionPresenter;
+    private SettingsGroup? _settingsGroup;
+
+    public SettingsGroup()
     {
-        private const string PartDescriptionPresenter = "DescriptionPresenter";
-        private ContentPresenter _descriptionPresenter;
-        private SettingsGroup _settingsGroup;
+        DefaultStyleKey = typeof(SettingsGroup);
+    }
 
-        public SettingsGroup()
+    [Localizable(true)]
+    public string Header
+    {
+        get => (string)GetValue(HeaderProperty);
+        set => SetValue(HeaderProperty, value);
+    }
+
+    public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(
+        nameof(Header),
+        typeof(string),
+        typeof(SettingsGroup),
+        new PropertyMetadata(default(string)));
+
+    [Localizable(true)]
+    public object Description
+    {
+        get => (object)GetValue(DescriptionProperty);
+        set => SetValue(DescriptionProperty, value);
+    }
+
+    public static readonly DependencyProperty DescriptionProperty = DependencyProperty.Register(
+        nameof(Description),
+        typeof(object),
+        typeof(SettingsGroup),
+        new PropertyMetadata(null, OnDescriptionChanged));
+
+    protected override void OnApplyTemplate()
+    {
+        IsEnabledChanged -= SettingsGroup_IsEnabledChanged;
+        _settingsGroup = (SettingsGroup)this;
+        _descriptionPresenter = (ContentPresenter)_settingsGroup.GetTemplateChild(PartDescriptionPresenter);
+        SetEnabledState();
+        IsEnabledChanged += SettingsGroup_IsEnabledChanged;
+        base.OnApplyTemplate();
+    }
+
+    private static void OnDescriptionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        ((SettingsGroup)d).Update();
+    }
+
+    private void SettingsGroup_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+    {
+        SetEnabledState();
+    }
+
+    private void SetEnabledState()
+    {
+        VisualStateManager.GoToState(this, IsEnabled ? "Normal" : "Disabled", true);
+    }
+
+    private void Update()
+    {
+        if (_settingsGroup == null)
         {
-            DefaultStyleKey = typeof(SettingsGroup);
+            return;
         }
 
-        [Localizable(true)]
-        public string Header
+        if (_settingsGroup._descriptionPresenter != null)
         {
-            get => (string)GetValue(HeaderProperty);
-            set => SetValue(HeaderProperty, value);
-        }
-
-        public static readonly DependencyProperty HeaderProperty = DependencyProperty.Register(
-            nameof(Header),
-            typeof(string),
-            typeof(SettingsGroup),
-            new PropertyMetadata(default(string)));
-
-        [Localizable(true)]
-        public object Description
-        {
-            get => (object)GetValue(DescriptionProperty);
-            set => SetValue(DescriptionProperty, value);
-        }
-
-        public static readonly DependencyProperty DescriptionProperty = DependencyProperty.Register(
-            nameof(Description),
-            typeof(object),
-            typeof(SettingsGroup),
-            new PropertyMetadata(null, OnDescriptionChanged));
-
-        protected override void OnApplyTemplate()
-        {
-            IsEnabledChanged -= SettingsGroup_IsEnabledChanged;
-            _settingsGroup = (SettingsGroup)this;
-            _descriptionPresenter = (ContentPresenter)_settingsGroup.GetTemplateChild(PartDescriptionPresenter);
-            SetEnabledState();
-            IsEnabledChanged += SettingsGroup_IsEnabledChanged;
-            base.OnApplyTemplate();
-        }
-
-        private static void OnDescriptionChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ((SettingsGroup)d).Update();
-        }
-
-        private void SettingsGroup_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            SetEnabledState();
-        }
-
-        private void SetEnabledState()
-        {
-            VisualStateManager.GoToState(this, IsEnabled ? "Normal" : "Disabled", true);
-        }
-
-        private void Update()
-        {
-            if (_settingsGroup == null)
-            {
-                return;
-            }
-
-            _settingsGroup._descriptionPresenter.Visibility = _settingsGroup.Description == null ? Visibility.Collapsed : Visibility.Visible;
+            _settingsGroup._descriptionPresenter.Visibility =
+                Visibility.Visible;
         }
     }
 }
