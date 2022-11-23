@@ -86,7 +86,6 @@
         <controls:ListDetailsView
             x:Uid="ListDetails"
             x:Name="ListDetailsViewControl"
-            BackButtonBehavior="Manual"
             Background="Transparent"
             BorderBrush="Transparent"
             DetailsTemplate="{StaticResource DetailsTemplate}"

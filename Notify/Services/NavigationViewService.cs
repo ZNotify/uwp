@@ -30,7 +30,6 @@ public class NavigationViewService : INavigationViewService
     public void Initialize(NavigationView navigationView)
     {
         _navigationView = navigationView;
-        _navigationView.BackRequested += OnBackRequested;
         _navigationView.ItemInvoked += OnItemInvoked;
     }
 
@@ -38,7 +37,6 @@ public class NavigationViewService : INavigationViewService
     {
         if (_navigationView != null)
         {
-            _navigationView.BackRequested -= OnBackRequested;
             _navigationView.ItemInvoked -= OnItemInvoked;
         }
     }
@@ -52,8 +50,6 @@ public class NavigationViewService : INavigationViewService
 
         return null;
     }
-
-    private void OnBackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args) => _navigationService.GoBack();
 
     private void OnItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
     {

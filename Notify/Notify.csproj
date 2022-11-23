@@ -16,11 +16,8 @@
     <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
     <WindowsPackageType>None</WindowsPackageType>
   </PropertyGroup>
-  <ItemGroup>
-    <Page Remove="Styles\Button.xaml" />
-  </ItemGroup>
 
-  <ItemGroup>
+	<ItemGroup>
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 

@@ -15,7 +15,6 @@ public class PageService : IPageService
     public PageService()
     {
         Configure<MainViewModel, MainPage>();
-        Configure<MainDetailViewModel, MainDetailPage>();
         Configure<ListDetailsViewModel, ListDetailsPage>();
         Configure<SettingsViewModel, SettingsPage>();
     }
@@ -34,19 +33,19 @@ public class PageService : IPageService
         return pageType;
     }
 
-    private void Configure<VM, V>()
-        where VM : ObservableObject
-        where V : Page
+    private void Configure<TObservableObject, TPage>()
+        where TObservableObject : ObservableObject
+        where TPage : Page
     {
         lock (_pages)
         {
-            var key = typeof(VM).FullName!;
+            var key = typeof(TObservableObject).FullName!;
             if (_pages.ContainsKey(key))
             {
                 throw new ArgumentException($"The key {key} is already configured in PageService");
             }
 
-            var type = typeof(V);
+            var type = typeof(TPage);
             if (_pages.Any(p => p.Value == type))
             {
                 throw new ArgumentException($"This type is already configured with key {_pages.First(p => p.Value == type).Key}");

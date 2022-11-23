@@ -25,11 +25,11 @@
                        Style="{StaticResource CaptionTextBlockStyle}"
                        Margin="28,0,0,0"/>
         </Grid>
+        <!-- ReSharper disable once Xaml.PossibleNullReferenceException -->
         <NavigationView
             x:Name="NavigationViewControl"
             Canvas.ZIndex="0"
-            IsBackButtonVisible="Visible"
-            IsBackEnabled="{x:Bind ViewModel.IsBackEnabled, Mode=OneWay}"
+            IsBackButtonVisible="Collapsed"
             SelectedItem="{x:Bind ViewModel.Selected, Mode=OneWay}"
             IsSettingsVisible="True"
             ExpandedModeThresholdWidth="1280"
@@ -64,6 +64,7 @@
                 </DataTemplate>
             </NavigationView.HeaderTemplate>
             <i:Interaction.Behaviors>
+                <!-- ReSharper disable once Xaml.PossibleNullReferenceException -->
                 <behaviors:NavigationViewHeaderBehavior
                     DefaultHeader="{x:Bind ((ContentControl)ViewModel.Selected).Content, Mode=OneWay}">
                     <behaviors:NavigationViewHeaderBehavior.DefaultHeaderTemplate>

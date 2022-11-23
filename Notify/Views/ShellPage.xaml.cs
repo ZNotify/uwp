@@ -41,14 +41,13 @@ public sealed partial class ShellPage : Page
         TitleBarHelper.UpdateTitleBar(RequestedTheme);
 
         KeyboardAccelerators.Add(BuildKeyboardAccelerator(VirtualKey.Left, VirtualKeyModifiers.Menu));
-        KeyboardAccelerators.Add(BuildKeyboardAccelerator(VirtualKey.GoBack));
     }
 
     private void MainWindow_Activated(object sender, WindowActivatedEventArgs args)
     {
         var resource = args.WindowActivationState == WindowActivationState.Deactivated ? "WindowCaptionForegroundDisabled" : "WindowCaptionForeground";
 
-        AppTitleBarText.Foreground = (SolidColorBrush)App.Current.Resources[resource];
+        AppTitleBarText.Foreground = (SolidColorBrush)Application.Current.Resources[resource];
     }
 
     private void NavigationViewControl_DisplayModeChanged(NavigationView sender, NavigationViewDisplayModeChangedEventArgs args)
@@ -71,17 +70,6 @@ public sealed partial class ShellPage : Page
             keyboardAccelerator.Modifiers = modifiers.Value;
         }
 
-        keyboardAccelerator.Invoked += OnKeyboardAcceleratorInvoked;
-
         return keyboardAccelerator;
-    }
-
-    private static void OnKeyboardAcceleratorInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
-    {
-        var navigationService = App.GetService<INavigationService>();
-
-        var result = navigationService.GoBack();
-
-        args.Handled = result;
     }
 }

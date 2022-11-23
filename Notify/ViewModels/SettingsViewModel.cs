@@ -15,7 +15,6 @@ namespace Notify.ViewModels;
 
 public class SettingsViewModel : ObservableRecipient
 {
-    private readonly IThemeSelectorService _themeSelectorService;
     private ElementTheme _elementTheme;
     private string _versionDescription;
 
@@ -38,19 +37,21 @@ public class SettingsViewModel : ObservableRecipient
 
     public SettingsViewModel(IThemeSelectorService themeSelectorService)
     {
-        _themeSelectorService = themeSelectorService;
-        _elementTheme = _themeSelectorService.Theme;
+        _elementTheme = themeSelectorService.Theme;
         _versionDescription = GetVersionDescription();
 
-        SwitchThemeCommand = new RelayCommand<ElementTheme>(
-            async (param) =>
+        async void UpdateTheme(ElementTheme param)
+        {
+            if (ElementTheme == param)
             {
-                if (ElementTheme != param)
-                {
-                    ElementTheme = param;
-                    await _themeSelectorService.SetThemeAsync(param);
-                }
-            });
+                return;
+            }
+
+            ElementTheme = param;
+            await themeSelectorService.SetThemeAsync(param);
+        }
+
+        SwitchThemeCommand = new RelayCommand<ElementTheme>(UpdateTheme);
     }
 
     private static string GetVersionDescription()
@@ -61,7 +62,7 @@ public class SettingsViewModel : ObservableRecipient
         {
             var packageVersion = Package.Current.Id.Version;
 
-            version = new(packageVersion.Major, packageVersion.Minor, packageVersion.Build, packageVersion.Revision);
+            version = new Version(packageVersion.Major, packageVersion.Minor, packageVersion.Build, packageVersion.Revision);
         }
         else
         {
