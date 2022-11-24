@@ -1,10 +1,10 @@
-﻿{
-    "profiles": {
-      "Notify (Unpackaged)": {
-        "commandName": "Project"
-      },
-      "Notify (Package)": {
-        "commandName": "MsixPackage"
-      }
+{
+  "profiles": {
+    "Notify (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Notify (Unpackaged)": {
+      "commandName": "Project"
     }
+  }
 }
