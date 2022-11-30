@@ -1,12 +1,9 @@
 ﻿using System.Collections.Specialized;
 using System.Web;
-
 using Microsoft.Windows.AppNotifications;
-
 using Notify.Contracts.Services;
-using Notify.ViewModels;
 
-namespace Notify.Notifications;
+namespace Notify.Services;
 
 public class AppNotificationService : IAppNotificationService
 {

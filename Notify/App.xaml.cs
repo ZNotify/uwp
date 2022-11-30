@@ -8,7 +8,6 @@ using Notify.Core.Contracts.Services;
 using Notify.Core.Services;
 using Notify.Helpers;
 using Notify.Models;
-using Notify.Notifications;
 using Notify.Services;
 using Notify.ViewModels;
 using Notify.Views;
