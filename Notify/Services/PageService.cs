@@ -14,9 +14,9 @@ public class PageService : IPageService
 
     public PageService()
     {
-        Configure<MainViewModel, MainPage>();
-        Configure<ListDetailsViewModel, ListDetailsPage>();
-        Configure<SettingsViewModel, SettingsPage>();
+        Register<MainViewModel, MainPage>();
+        Register<ListDetailsViewModel, ListDetailsPage>();
+        Register<SettingsViewModel, SettingsPage>();
     }
 
     public Type GetPageType(string key)
@@ -26,14 +26,14 @@ public class PageService : IPageService
         {
             if (!_pages.TryGetValue(key, out pageType))
             {
-                throw new ArgumentException($"Page not found: {key}. Did you forget to call PageService.Configure?");
+                throw new ArgumentException($"Page not found: {key}. Did you forget to call PageService.Register?");
             }
         }
 
         return pageType;
     }
 
-    private void Configure<TObservableObject, TPage>()
+    private void Register<TObservableObject, TPage>()
         where TObservableObject : ObservableObject
         where TPage : Page
     {

@@ -1,7 +1,5 @@
 ﻿namespace Notify.Activation;
 
-// Extend this class to implement new ActivationHandlers. See DefaultActivationHandler for an example.
-// https://github.com/microsoft/TemplateStudio/blob/main/docs/WinUI/activation.md
 public abstract class ActivationHandler<T> : IActivationHandler
     where T : class
 {
@@ -11,7 +9,7 @@ public abstract class ActivationHandler<T> : IActivationHandler
     // Override this method to add the logic for your activation handler.
     protected abstract Task HandleInternalAsync(T args);
 
-    public bool CanHandle(object args) => args is T && CanHandleInternal((args as T)!);
+    public bool CanHandle(object args) => args is T o && CanHandleInternal(o);
 
     public async Task HandleAsync(object args) => await HandleInternalAsync((args as T)!);
 }

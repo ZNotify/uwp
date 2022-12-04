@@ -25,7 +25,7 @@ public class NavigationViewHeaderBehavior : Behavior<NavigationView>
     }
 
     public static readonly DependencyProperty DefaultHeaderProperty =
-        DependencyProperty.Register("DefaultHeader", typeof(object), typeof(NavigationViewHeaderBehavior), new PropertyMetadata(null, (d, e) => _current!.UpdateHeader()));
+        DependencyProperty.Register(nameof(DefaultHeader), typeof(object), typeof(NavigationViewHeaderBehavior), new PropertyMetadata(null, (d, e) => _current!.UpdateHeader()));
 
     public static NavigationViewHeaderMode GetHeaderMode(Page item) => (NavigationViewHeaderMode)item.GetValue(HeaderModeProperty);
 
@@ -68,13 +68,15 @@ public class NavigationViewHeaderBehavior : Behavior<NavigationView>
 
     private void OnNavigated(object sender, NavigationEventArgs e)
     {
-        if (sender is Frame frame && frame.Content is Page page)
+        if (sender is not Frame { Content: Page page })
         {
-            _currentPage = page;
-
-            UpdateHeader();
-            UpdateHeaderTemplate();
+            return;
         }
+
+        _currentPage = page;
+
+        UpdateHeader();
+        UpdateHeaderTemplate();
     }
 
     private void UpdateHeader()
@@ -90,33 +92,21 @@ public class NavigationViewHeaderBehavior : Behavior<NavigationView>
             else
             {
                 var headerFromPage = GetHeaderContext(_currentPage);
-                if (headerFromPage != null)
-                {
-                    AssociatedObject.Header = headerFromPage;
-                }
-                else
-                {
-                    AssociatedObject.Header = DefaultHeader;
-                }
+                AssociatedObject.Header = headerFromPage;
 
-                if (headerMode == NavigationViewHeaderMode.Always)
-                {
-                    AssociatedObject.AlwaysShowHeader = true;
-                }
-                else
-                {
-                    AssociatedObject.AlwaysShowHeader = false;
-                }
+                AssociatedObject.AlwaysShowHeader = (headerMode == NavigationViewHeaderMode.Always);
             }
         }
     }
 
     private void UpdateHeaderTemplate()
     {
-        if (_currentPage != null)
+        if (_currentPage == null)
         {
-            var headerTemplate = GetHeaderTemplate(_currentPage);
-            AssociatedObject.HeaderTemplate = headerTemplate ?? DefaultHeaderTemplate;
+            return;
         }
+
+        var headerTemplate = GetHeaderTemplate(_currentPage);
+        AssociatedObject.HeaderTemplate = headerTemplate ?? DefaultHeaderTemplate;
     }
 }

@@ -7,11 +7,14 @@ namespace Notify.Services;
 
 public class AppNotificationService : IAppNotificationService
 {
-    private readonly INavigationService _navigationService;
+    public INavigationService Service
+    {
+        get;
+    }
 
     public AppNotificationService(INavigationService navigationService)
     {
-        _navigationService = navigationService;
+        Service = navigationService;
     }
 
     ~AppNotificationService()
@@ -38,13 +41,6 @@ public class AppNotificationService : IAppNotificationService
         ////        _navigationService.NavigateTo(typeof(SettingsViewModel).FullName!);
         ////    });
         //// }
-
-        App.MainWindow.DispatcherQueue.TryEnqueue(() =>
-        {
-            App.MainWindow.ShowMessageDialogAsync("TODO: Handle notification invocations when your app is already running.", "Notification Invoked");
-
-            App.MainWindow.BringToFront();
-        });
     }
 
     public bool Show(string payload)

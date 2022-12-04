@@ -6,9 +6,4 @@ public class LocalSettingsOptions
     {
         get; set;
     }
-
-    public string? LocalSettingsFile
-    {
-        get; set;
-    }
 }

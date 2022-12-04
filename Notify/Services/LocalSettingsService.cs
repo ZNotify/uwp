@@ -1,11 +1,9 @@
 ﻿using Microsoft.Extensions.Options;
-
 using Notify.Contracts.Services;
 using Notify.Core.Contracts.Services;
 using Notify.Core.Helpers;
 using Notify.Helpers;
 using Notify.Models;
-
 using Windows.ApplicationModel;
 using Windows.Storage;
 
@@ -13,15 +11,20 @@ namespace Notify.Services;
 
 public class LocalSettingsService : ILocalSettingsService
 {
-    private const string _defaultApplicationDataFolder = "Notify/ApplicationData";
-    private const string _defaultLocalSettingsFile = "LocalSettings.json";
+    private const string DefaultApplicationDataFolder = "Notify/ApplicationData";
+    private const string DefaultLocalSettingsFile = "LocalSettings.json";
 
     private readonly IFileService _fileService;
-    private readonly LocalSettingsOptions _options;
 
-    private readonly string _localApplicationData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-    private readonly string _applicationDataFolder;
-    private readonly string _localsettingsFile;
+    private readonly string _localApplicationData =
+        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+
+    // home directory of the user
+    private readonly string _applicationDataFolder = Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+        ".znotify");
+
+    private readonly string _localSettingsFile = "config.toml";
 
     private IDictionary<string, object> _settings;
 
@@ -30,10 +33,6 @@ public class LocalSettingsService : ILocalSettingsService
     public LocalSettingsService(IFileService fileService, IOptions<LocalSettingsOptions> options)
     {
         _fileService = fileService;
-        _options = options.Value;
-
-        _applicationDataFolder = Path.Combine(_localApplicationData, _options.ApplicationDataFolder ?? _defaultApplicationDataFolder);
-        _localsettingsFile = _options.LocalSettingsFile ?? _defaultLocalSettingsFile;
 
         _settings = new Dictionary<string, object>();
     }
@@ -42,47 +41,34 @@ public class LocalSettingsService : ILocalSettingsService
     {
         if (!_isInitialized)
         {
-            _settings = await Task.Run(() => _fileService.Read<IDictionary<string, object>>(_applicationDataFolder, _localsettingsFile)) ?? new Dictionary<string, object>();
+            _settings = await Task.Run(() =>
+                            _fileService.Read<IDictionary<string, object>>(_applicationDataFolder,
+                                _localSettingsFile)) ??
+                        new Dictionary<string, object>();
 
             _isInitialized = true;
         }
     }
 
-    public async Task<T?> ReadSettingAsync<T>(string key)
+    public async Task<string?> ReadSettingAsync(string key)
     {
-        if (RuntimeHelper.IsMSIX)
-        {
-            if (ApplicationData.Current.LocalSettings.Values.TryGetValue(key, out var obj))
-            {
-                return await Json.ToObjectAsync<T>((string)obj);
-            }
-        }
-        else
-        {
-            await InitializeAsync();
+        await InitializeAsync();
 
-            if (_settings != null && _settings.TryGetValue(key, out var obj))
-            {
-                return await Json.ToObjectAsync<T>((string)obj);
-            }
+        if (_settings.TryGetValue(key, out var obj))
+        {
+            return (string)obj;
         }
+
 
         return default;
     }
 
-    public async Task SaveSettingAsync<T>(string key, T value)
+    public async Task SaveSettingAsync(string key, string value)
     {
-        if (RuntimeHelper.IsMSIX)
-        {
-            ApplicationData.Current.LocalSettings.Values[key] = await Json.StringifyAsync(value);
-        }
-        else
-        {
-            await InitializeAsync();
+        await InitializeAsync();
 
-            _settings[key] = await Json.StringifyAsync(value);
+        _settings[key] = value;
 
-            await Task.Run(() => _fileService.Save(_applicationDataFolder, _localsettingsFile, _settings));
-        }
+        await Task.Run(() => _fileService.Save(_applicationDataFolder, _localSettingsFile, _settings));
     }
 }

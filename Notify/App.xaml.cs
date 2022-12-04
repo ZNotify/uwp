@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.UI.Xaml;
-
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using Notify.Activation;
 using Notify.Contracts.Services;
 using Notify.Core.Contracts.Services;
@@ -38,51 +40,54 @@ public partial class App : Application
         return service;
     }
 
-    public static WindowEx MainWindow { get; } = new MainWindow();
+    public static WindowEx MainWindow
+    {
+        get;
+    } = new MainWindow();
 
     public App()
     {
+        AppCenter.Start("34635ea5-7a07-4798-b55c-a67c72a295e4",
+            typeof(Analytics), typeof(Crashes));
+
         InitializeComponent();
 
-        Host = Microsoft.Extensions.Hosting.Host.
-        CreateDefaultBuilder().
-        UseContentRoot(AppContext.BaseDirectory).
-        ConfigureServices((context, services) =>
-        {
-            // Default Activation Handler
-            services.AddTransient<ActivationHandler<LaunchActivatedEventArgs>, DefaultActivationHandler>();
+        Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder().UseContentRoot(AppContext.BaseDirectory)
+            .ConfigureServices((context, services) =>
+            {
+                // Default Activation Handler
+                services.AddTransient<ActivationHandler<LaunchActivatedEventArgs>, DefaultActivationHandler>();
 
-            // Other Activation Handlers
-            services.AddTransient<IActivationHandler, AppNotificationActivationHandler>();
+                // Other Activation Handlers
+                services.AddTransient<IActivationHandler, AppNotificationActivationHandler>();
 
-            // Services
-            services.AddSingleton<IAppNotificationService, AppNotificationService>();
-            services.AddSingleton<ILocalSettingsService, LocalSettingsService>();
-            services.AddSingleton<IThemeSelectorService, ThemeSelectorService>();
-            services.AddTransient<INavigationViewService, NavigationViewService>();
+                // Services
+                services.AddSingleton<IAppNotificationService, AppNotificationService>();
+                services.AddSingleton<ILocalSettingsService, LocalSettingsService>();
+                services.AddSingleton<IThemeSelectorService, ThemeSelectorService>();
+                services.AddTransient<INavigationViewService, NavigationViewService>();
 
-            services.AddSingleton<IActivationService, ActivationService>();
-            services.AddSingleton<IPageService, PageService>();
-            services.AddSingleton<INavigationService, NavigationService>();
+                services.AddSingleton<IActivationService, ActivationService>();
+                services.AddSingleton<IPageService, PageService>();
+                services.AddSingleton<INavigationService, NavigationService>();
 
-            // Core Services
-            services.AddSingleton<ISampleDataService, SampleDataService>();
-            services.AddSingleton<IFileService, FileService>();
+                // Core Services
+                services.AddSingleton<ISampleDataService, SampleDataService>();
+                services.AddSingleton<IFileService, FileService>();
 
-            // Views and ViewModels
-            services.AddTransient<SettingsViewModel>();
-            services.AddTransient<SettingsPage>();
-            services.AddTransient<ListDetailsViewModel>();
-            services.AddTransient<ListDetailsPage>();
-            services.AddTransient<MainViewModel>();
-            services.AddTransient<MainPage>();
-            services.AddTransient<ShellPage>();
-            services.AddTransient<ShellViewModel>();
+                // Views and ViewModels
+                services.AddTransient<SettingsViewModel>();
+                services.AddTransient<SettingsPage>();
+                services.AddTransient<ListDetailsViewModel>();
+                services.AddTransient<ListDetailsPage>();
+                services.AddTransient<MainViewModel>();
+                services.AddTransient<MainPage>();
+                services.AddTransient<ShellPage>();
+                services.AddTransient<ShellViewModel>();
 
-            // Configuration
-            services.Configure<LocalSettingsOptions>(context.Configuration.GetSection(nameof(LocalSettingsOptions)));
-        }).
-        Build();
+                // Configuration
+                services.Configure<LocalSettingsOptions>(context.Configuration.GetSection(nameof(LocalSettingsOptions)));
+            }).Build();
 
         App.GetService<IAppNotificationService>().Initialize();
 
@@ -91,16 +96,12 @@ public partial class App : Application
 
     private void App_UnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
     {
-        // TODO: Log and handle exceptions as appropriate.
-        // https://docs.microsoft.com/windows/windows-app-sdk/api/winrt/microsoft.ui.xaml.application.unhandledexception.
+        Crashes.TrackError(e.Exception);
     }
 
     protected async override void OnLaunched(LaunchActivatedEventArgs args)
     {
         base.OnLaunched(args);
-
-        App.GetService<IAppNotificationService>().Show(string.Format("AppNotificationSamplePayload".GetLocalized(), AppContext.BaseDirectory));
-
         await App.GetService<IActivationService>().ActivateAsync(args);
     }
 }
