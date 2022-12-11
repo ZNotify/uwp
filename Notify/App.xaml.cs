@@ -8,8 +8,6 @@ using Notify.Activation;
 using Notify.Contracts.Services;
 using Notify.Core.Contracts.Services;
 using Notify.Core.Services;
-using Notify.Helpers;
-using Notify.Models;
 using Notify.Services;
 using Notify.ViewModels;
 using Notify.Views;
@@ -72,7 +70,7 @@ public partial class App : Application
                 services.AddSingleton<INavigationService, NavigationService>();
 
                 // Core Services
-                services.AddSingleton<ISampleDataService, SampleDataService>();
+                // services.AddSingleton<ISampleDataService, SampleDataService>();
                 services.AddSingleton<IFileService, FileService>();
 
                 // Views and ViewModels
@@ -84,9 +82,6 @@ public partial class App : Application
                 services.AddTransient<MainPage>();
                 services.AddTransient<ShellPage>();
                 services.AddTransient<ShellViewModel>();
-
-                // Configuration
-                services.Configure<LocalSettingsOptions>(context.Configuration.GetSection(nameof(LocalSettingsOptions)));
             }).Build();
 
         App.GetService<IAppNotificationService>().Initialize();

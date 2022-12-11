@@ -6,8 +6,6 @@ using CommunityToolkit.Mvvm.Input;
 
 using Notify.Contracts.Services;
 using Notify.Contracts.ViewModels;
-using Notify.Core.Contracts.Services;
-using Notify.Core.Models;
 
 namespace Notify.ViewModels;
 
